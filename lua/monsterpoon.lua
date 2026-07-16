@@ -123,7 +123,6 @@ function M:openArgedit()
     vim.api.nvim_buf_set_lines(self.argeditBufId, 0, -1, false, content)
 
     vim.keymap.set('n', '<CR>', function()
-        print('->> CR callback')
         local file = vim.fn.getline(".")
         self:closeArgeditWindow() -- This DOES trigger WinClosed
         self:updateAndNotify()
@@ -134,7 +133,6 @@ function M:openArgedit()
         group = vim.api.nvim_create_augroup('tweetymonster21/monsterpoon/writeArgEdit', { clear = true }),
         buffer = self.argeditBufId,
         callback = function()
-            print('->> BufWriteCmd')
             local newArgs = vim.api.nvim_buf_get_lines(0, 0, -1, true)
 
             self:closeArgeditWindow() -- This does NOT trigger WinClosed
@@ -156,7 +154,6 @@ function M:openArgedit()
         pattern = tostring(self.argeditWinId),
         group = vim.api.nvim_create_augroup('tweetymonster21/monsterpoon/winClosedArgEdit', { clear = true }),
         callback = function()
-            print('->> WinClosed')
             self.isArgeditOpen = false
             self:cleanupArgeditBuffer()
             self:updateAndNotify()
@@ -165,7 +162,6 @@ function M:openArgedit()
 end
 
 function M:closeArgeditWindow()
-    print('->> closeArgeditWindow: winId', self.argeditWinId)
     vim.api.nvim_win_close(self.argeditWinId, true)
     self.argeditWinId = -1
     self.isArgeditOpen = false
