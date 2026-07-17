@@ -191,6 +191,7 @@ function M:renderArgs()
             displayFName = "%#" .. defaults.hiActive .. "#" .. vim.fn.printf(defaults.activeFormat, fname)
         else
             displayFName = fname
+            displayFName = "%#" .. defaults.hiInactive .. "#" .. fname
         end
 
         s = s .. displayFName .. "%#" .. defaults.hiInactive .. "#"
