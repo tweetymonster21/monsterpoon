@@ -51,6 +51,7 @@ end
 --- Append the current file to the arglist
 function M:appendCurrent()
     vim.cmd("$arga")
+    vim.cmd("argu " .. vim.fn.argc()) -- actually navigate to that file from the arglist. arge is weird
     vim.cmd "argded"
     self:updateAndNotify()
 end
