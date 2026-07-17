@@ -13,16 +13,9 @@ local function notifyIfNeeded()
     end
 end
 
---- NOTE: BufEnter alone is not enough to overcome netrw's weirdness. In particular:
---- Add file to arglist
---- Delete the file from netrw
---- Set new arglist (either via :args or the reloadArglist function)
---- => Results in opening the first file from the new arglist for no reason and trigger BufWinEnter
---- instead of BufEnter
 local notifyOnEvents = {
     'VimEnter',
     'BufEnter',
-    'BufWinEnter',
 }
 
 for _, event in ipairs(notifyOnEvents) do
