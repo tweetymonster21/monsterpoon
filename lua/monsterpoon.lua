@@ -148,7 +148,9 @@ function M:openArgedit()
             -- Because this will navigate to file1
             vim.cmd("%argd")
             for _, arg in ipairs(newArgs) do
-                vim.cmd("arga " .. arg)
+                if arg ~= "" then -- care about empty lines as it would add the current file
+                    vim.cmd("arga " .. arg)
+                end
             end
             vim.cmd("argded")
             vim.bo.modified = false
