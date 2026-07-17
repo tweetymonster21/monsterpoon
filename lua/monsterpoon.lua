@@ -75,8 +75,7 @@ function M:goToFile(n)
     end
 end
 
---- There's no way tell when deleting a file if that file was in the arglist
---- So I'm providing a function that detects ghost files and removes them manually from the arglist
+--- Removes files from the arglist that no longer exist
 function M:reloadArglist()
     -- @type string[]
     local newArgs = {}
@@ -86,7 +85,11 @@ function M:reloadArglist()
             table.insert(newArgs, arg)
         end
     end
-    vim.cmd("args " .. table.concat(newArgs, " "))
+    vim.cmd("%argd")
+    for _, arg in ipairs(newArgs) do
+        vim.cmd("arga " .. arg)
+    end
+    vim.cmd("argded")
 end
 
 --- Create a new arg list for the window
