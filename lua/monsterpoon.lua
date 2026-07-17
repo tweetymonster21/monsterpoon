@@ -90,6 +90,7 @@ function M:reloadArglist()
         vim.cmd("arga " .. arg)
     end
     vim.cmd("argded")
+    self:updateAndNotify()
 end
 
 --- Create a new arg list for the window
