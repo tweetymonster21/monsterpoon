@@ -51,7 +51,7 @@ end
 --- Append the current file to the arglist
 function M:appendCurrent()
     vim.cmd("$arga")
-    vim.cmd("argu " .. vim.fn.argc()) -- actually navigate to that file from the arglist. arge is weird
+    vim.cmd("argu " .. vim.fn.argc()) -- have the arglist making that file the current one. arge is weird
     vim.cmd "argded"
     self:updateAndNotify()
 end
@@ -124,7 +124,7 @@ function M:openArgedit()
     vim.api.nvim_buf_set_name(self.argeditBufId, "Monsterpoon")
     vim.api.nvim_set_option_value("buftype", "acwrite", { buf = self.argeditBufId })
 
-    local content = vim.fn.argv(-1) --- @cast content string[]
+    local content = vim.fn.argv() --- @cast content string[]
     vim.api.nvim_buf_set_lines(self.argeditBufId, 0, -1, false, content)
 
     vim.keymap.set('n', '<CR>', function()
@@ -149,7 +149,7 @@ function M:openArgedit()
             vim.cmd("%argd")
             for _, arg in ipairs(newArgs) do
                 if arg ~= "" then -- care about empty lines as it would add the current file
-                    vim.cmd("arga " .. arg)
+                    vim.cmd("$arga " .. arg)
                 end
             end
             vim.cmd("argded")
