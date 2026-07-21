@@ -140,10 +140,6 @@ function M:openArgedit()
         callback = function()
             local newArgs = vim.api.nvim_buf_get_lines(0, 0, -1, true)
 
-            self:closeArgeditWindow() -- This does NOT trigger WinClosed
-            self:cleanupArgeditBuffer()
-            self:updateAndNotify()
-
             -- Don't call args file1 file2 ...
             -- Because this will navigate to file1
             vim.cmd("%argd")
@@ -154,6 +150,9 @@ function M:openArgedit()
             end
             vim.cmd("argded")
             vim.bo.modified = false
+            self:closeArgeditWindow() -- This does NOT trigger WinClosed
+            self:cleanupArgeditBuffer()
+            self:updateAndNotify()
         end
     })
 
