@@ -25,8 +25,8 @@ local defaults = {
     sep = '  ',                -- Separation between two files in the arglist
 }
 
-function M:setup(opts)
-    defaults = vim.tbl_deep_extend("force", defaults, opts or {})
+function M:setup(config)
+    defaults = vim.tbl_deep_extend("force", defaults, config or {})
 end
 
 --- Run the autocmds everytime the arglist has changed in a way that it needs to be redrawn
@@ -36,16 +36,9 @@ function M:notify()
     })
 end
 
---- Run the autocmd only if arglist has to be redrawn
 function M:updateAndNotify()
-    local weWereInTheArglist = self.weAreInArglist
     self.weAreInArglist, self.currentPosInArglist = utils.isCurrentBufferInArgs()
-
-    -- Basically we always want to re render unless we went from a file not in the arglist to
-    -- another file still not in the arglist
-    if weWereInTheArglist or self.weAreInArglist then
-        self:notify()
-    end
+    self:notify()
 end
 
 --- Append the current file to the arglist
