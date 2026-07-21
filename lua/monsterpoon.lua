@@ -36,6 +36,7 @@ function M:notify()
     })
 end
 
+--- Run the autocmd only if arglist has to be redrawn
 function M:updateAndNotify()
     self.weAreInArglist, self.currentPosInArglist = utils.isCurrentBufferInArgs()
     self:notify()
