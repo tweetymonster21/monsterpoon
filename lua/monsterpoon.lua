@@ -91,7 +91,9 @@ end
 --- Create a new arg list for the window
 function M:newLocalArglist()
     vim.cmd "argl"
-    vim.cmd "argd *"
+    if vim.fn.argc() > 1 then
+        vim.cmd "argd *"
+    end
     self:updateAndNotify()
 end
 
