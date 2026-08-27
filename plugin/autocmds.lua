@@ -1,15 +1,8 @@
 local monsterpoon = require('monsterpoon')
 
-local notifyOnEvents = {
-    'VimEnter',
-    'BufEnter',
-}
-
-for _, event in ipairs(notifyOnEvents) do
-    vim.api.nvim_create_autocmd(event, {
-        group = vim.api.nvim_create_augroup('tweetymonster21/masarpoon/' .. event, { clear = true }),
-        callback = function()
-            monsterpoon:updateAndNotify()
-        end
-    })
-end
+vim.api.nvim_create_autocmd({ 'VimEnter', 'BufEnter' }, {
+    group = vim.api.nvim_create_augroup('tweetymonster21/masarpoon/update_and_notify', { clear = true }),
+    callback = function()
+        monsterpoon:updateAndNotify()
+    end
+})

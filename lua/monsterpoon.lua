@@ -38,7 +38,7 @@ end
 
 --- Run the autocmd only if arglist has to be redrawn
 function M:updateAndNotify()
-    self.weAreInArglist, self.currentPosInArglist = utils.isCurrentBufferInArgs()
+    self.weAreInArglist, self.currentPosInArglist = utils.isCurrentBufferInArgs() -- TODO: what does that do
     self:notify()
 end
 
